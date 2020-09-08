@@ -1,0 +1,23 @@
+{
+    "_id": "5caf380cffc41a3c5b09b67a",
+    "shortid": "ryxJqEHqKV",
+    "name": "cover",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "marginTop": "0",
+        "marginRight": "0",
+        "marginBottom": "0",
+        "marginLeft": "0",
+        "format": "Legal"
+    },
+    "creationDate": {
+        "$$date": 1599582638865
+    },
+    "modificationDate": {
+        "$$date": 1599582638865
+    },
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "templates"
+}

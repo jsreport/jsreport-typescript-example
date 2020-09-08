@@ -1,0 +1,50 @@
+{
+    "_id": "5caf380cffc41a12f309b67d",
+    "shortid": "S1g2mhreON",
+    "name": "main",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "marginTop": "100px",
+        "marginRight": "40px",
+        "marginBottom": "90px",
+        "marginLeft": "40px",
+        "waitForJS": false,
+        "format": "Legal"
+    },
+    "creationDate": {
+        "$$date": 1599582638885
+    },
+    "modificationDate": {
+        "$$date": 1599582638885
+    },
+    "data": {
+        "shortid": "rk-NnBguV"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "templateShortid": "r1gLo-EbOE",
+            "mergeWholeDocument": true,
+            "renderForEveryPage": false
+        },
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "renderForEveryPage": false,
+            "templateShortid": "HJl3VUr9tN"
+        },
+        {
+            "type": "prepend",
+            "templateShortid": "ryxJqEHqKV"
+        }
+    ],
+    "scripts": [
+        {
+            "shortid": "rJe-h2B5K4"
+        }
+    ],
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "templates"
+}

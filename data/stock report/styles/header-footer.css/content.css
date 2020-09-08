@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, serif;
+    font-size: 12px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    padding-top: 20px;
+}
+
+.header-content {
+    background: linear-gradient(to right, rgb(246, 148, 0) 0%, rgb(247, 183, 0) 100%);
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 10px 15px 10px;
+    border-bottom: 2px solid #000;
+}
+
+.header-title {
+    margin: 0 0 5px 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.header-subtitle {
+    margin: 0px;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.header-legend {
+    text-align: right;
+}
+
+.header-company .header-title,
+.header-company .header-subtitle {
+    color: #fff;
+}
+
+.header-legend .header-title {
+    font-weight: normal;
+}
+
+.header-legend .header-title,
+.header-legend .header-subtitle{
+    color: #000;
+}
+
+.footer {
+    width: 100%;
+    padding-bottom: 35px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    background-color: #333;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: right;
+}
+
+.footer-page-numbers {
+    font-size: 14px;
+}
+
+.footer-copy {
+    font-size: 12px;
+    color: #666;
+    padding-top: 8px;
+}

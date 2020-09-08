@@ -1,0 +1,1294 @@
+<html>
+    <head>
+        <style>
+            {#asset ./styles/main.css @encoding=utf8}
+        </style>
+        <script src="https://unpkg.com/numbro@2.1.2/dist/numbro.min.js"></script>
+        <script src="https://unpkg.com/chart.js@2.7.3/dist/Chart.min.js"></script>
+        <script src="https://unpkg.com/chartjs-plugin-datalabels@0.6.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    </head>
+    <body>
+    
+        {#child toc @template.recipe=html}
+        
+        <div style="page-break-before: always;"></div>
+        
+        {{#each companies}}
+            <section id="{{peerName}}">
+                {{{pdfCreatePagesGroup peerName=peerName fullName=company.fullName abbreviation=company.abbreviation business=company.business}}}
+                {{{pdfAddPageItem companyFirstPage=true}}}
+                <section class="summary-score">
+                    <section class="summary-score-row">
+                        <div>
+                            <div>
+                                <div class="summary-score-label">Last Close</div>
+                                <div class="summary-score-top-label">
+                                    <span class="summary-score-value">{{lastClose}}</span>&nbsp;<span class="summary-score-currency">({{currency}})</span>
+                                </div>
+                            </div>
+                            <div class="summary-score-separator">
+                                <div class="summary-score-text">{{formatReportDate ../exchangeDate}}</div>
+                                <div class="summary-score-top-label">
+                                    <span class="summary-score-text">{{stockExchange}} Exchange</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <table class="summary-score-table">
+                                <tr>
+                                    <td class="summary-score-label">Avg Daily Vol</td>
+                                    <td class="summary-score-label">52-Week High</td>
+                                    <td class="summary-score-label">Trailing PE</td>
+                                    <td class="summary-score-label">Annual Div</td>
+                                    <td class="summary-score-label cell-space">ROE</td>
+                                    <td class="summary-score-label">LTG Forecast</td>
+                                    <td class="summary-score-label">1-Mo Return</td>
+                                </tr>
+                                <tr>
+                                    <td class="summary-score-value" data-number-format>{{avgDailyVol}}</td>
+                                    <td class="summary-score-value" data-number-format>{{52WeekHigh}}</td>
+                                    <td class="summary-score-value" data-number-format>{{trailingPE}}</td>
+                                    <td class="summary-score-value" data-number-format>{{annualDiv}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{roePercentage}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{ltgForecastPercentage}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{1MoReturnPercentage}}</td>
+                                </tr>
+                                <tr class="summary-score-table-top-space">
+                                    <td class="summary-score-label">Market Cap</td>
+                                    <td class="summary-score-label">52-Week Low</td>
+                                    <td class="summary-score-label">Forward PE</td>
+                                    <td class="summary-score-label">Dividend Yield</td>
+                                    <td class="summary-score-label cell-space">Annual Rev</td>
+                                    <td class="summary-score-label">Inst Own</td>
+                                    <td class="summary-score-label">3-Mo Return</td>
+                                </tr>
+                                <tr>
+                                    <td class="summary-score-value" data-average-format>{{marketCap}}</td>
+                                    <td class="summary-score-value" data-number-format>{{52WeekLow}}</td>
+                                    <td class="summary-score-value" data-number-format>{{forwardPE}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{dividendYieldPercentage}}</td>
+                                    <td class="summary-score-value" data-average-format>{{annualRev}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{instOwnPercentage}}</td>
+                                    <td class="summary-score-value" data-percentage-format>{{3MoReturn}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "average-score"}}" class="section-content-title">
+                        Average Score
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "average-score")}}}
+                    </div>
+                    <div class="section-content section-top-space">
+                        <div class="section-content-left">
+                            <div class="clearfix">
+                                <div class="average-score-value average-score-value-top-negative clearfix">
+                                    Average
+                                    <br />
+                                    score
+                                    <br />
+                                    <span class="average-score-value-number">
+                                        {{getLastScoreOfPeer scoresByPeer peerName}}
+                                    </span>
+                                </div>
+                                <b>{{scoreOutlook}}:</b> {{scoreOutlookDescription}}
+                            </div>
+                            <div class="average-score-trend chart-container">
+                               <canvas data-average-score-trend-chart data-main-peer-name="{{peerName}}"></canvas>
+                            </div>
+                        </div>
+                        <div class="section-content-right">
+                            <div class="average-score-subtitle">
+                                <b>Score Averages</b>
+                            </div>
+                            <div class="average-score-inline-table">
+                                <div>
+                                    <div class="average-score-inline-table-item">
+                                        Investment Banking & Svcs. Group: <b>{{investmentBankingLastScore}}</b>
+                                    </div>
+                                    <div class="average-score-inline-table-item">
+                                        Banking & Investment Svcs. Sector: <b>{{bankingInvestmentLastScore}}</b>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="average-score-inline-table-item">
+                                        Mid MarketCap: <b>{{midMarketCapLastScore}}</b>
+                                    </div>
+                                    <div class="average-score-inline-table-item">
+                                        S&P 500 Index: <b>{{sp500IndexLastScore}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="average-score-table">
+                                <tr>
+                                    <th>Peers</th>
+                                    <th class="cell-number">-6M</th>
+                                    <th class="cell-number">-3M</th>
+                                    <th class="cell-number">-1M</th>
+                                    <th class="cell-current-score">Current</th>
+                                    <th class="cell-score-trend">1Y Trend</th>
+                                </tr>
+                                {{#each scoresByPeer}}
+                                    <tr class="{{addClassIfEqual @key ../peerName "main-peer"}}">
+                                        <td>{{@key}}</td>
+                                        <td class="cell-number">
+                                            {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 6}}
+                                        </td>
+                                        <td class="cell-number">
+                                            {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 3}}
+                                        </td>
+                                        <td class="cell-number">
+                                            {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate 1}}
+                                        </td>
+                                        <td class="cell-current-score">
+                                            <span class="cell-current-score-value">
+                                                {{getPeerScoreAtTime ../scoresByPeer @key ../../exchangeDate}}
+                                            </span>
+                                        </td>
+                                        <td class="cell-score-trend">
+                                            <div class="average-score-peer-trend-chart-container chart-container">
+                                               <canvas class="average-score-peer-trend-chart" data-main-peer-name="{{../peerName}}" data-peer-name="{{@key}}"></canvas>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="section-content">
+                        <div class="section-content-left">
+                            <div id="{{getPeerNameSectionName peerName "highlights"}}" class="section-content-title">
+                                Highlights
+                                {{{pdfAddPageItem id=(getPeerNameSectionName peerName "highlights")}}}
+                            </div>
+                            <div class="section-top-space">
+                                <ul class="scores-highlights-list">
+                                    {{#each scoreHighlights}}
+                                        <li>{{this}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="section-content-right">
+                            <div class="section-content-title">
+                                Thomson Reuters I/B/E/S Mean
+                            </div>
+                            <div class="section-top-space">
+                                <div class="scores-mean-recommendation">
+                                    <div class="scores-mean-recommendation-text">
+                                        <span class="scores-mean-recommendation-action {{addAnalystsRecommendationClass analystsRecommendationAction}}">{{analystsRecommendationAction}}</span>
+                                        <span>{{analystsCount}} Analysts</span>
+                                    </div>
+                                    <div class="scores-mean-recommendation-label">
+                                        Mean recommendation from all analysts covering the company on a standardized 5-point scale.
+                                    </div>
+                                </div>
+                                <div class="scores-mean-recommendation-graphic">
+                                    <div class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-sell {{addClassIfEqual "Sell" analystsRecommendationAction "active"}}">
+                                        <span>Sell</span>
+                                    </div>
+                                    <div class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-reduce {{addClassIfEqual "Reduce" analystsRecommendationAction "active"}}">
+                                        <span>Reduce</span>
+                                    </div>
+                                    <div class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-hold {{addClassIfEqual "Hold" analystsRecommendationAction "active"}}">
+                                        <span>Hold</span>
+                                    </div>
+                                    <div class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-buy {{addClassIfEqual "Buy" analystsRecommendationAction "active"}}">
+                                        <span>Buy</span>
+                                    </div>
+                                    <div class="scores-mean-recommendation-graphic-item scores-mean-recommendation-graphic-item-strong-buy {{addClassIfEqual "Strong Buy" analystsRecommendationAction "active"}}">
+                                        <span>
+                                            Strong
+                                            <br />
+                                            Buy
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "prive-volume-charts"}}" class="section-content-title">
+                        Price And Volume Charts
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "prive-volume-charts")}}}
+                    </div>
+                    <div class="section-content section-top-space">
+                        <div class="section-content-half">
+                            <div class="scores-volume-chart-container chart-container">
+                               <canvas class="scores-volume-chart" data-main-peer-name="{{peerName}}" data-past-years="1"></canvas>
+                            </div>
+                            <div class="scores-price-chart-container chart-container">
+                               <canvas class="scores-price-chart" data-main-peer-name="{{peerName}}" data-past-years="1" data-max-price-tick="2000000"></canvas>
+                            </div>
+                        </div>
+                        <div class="section-content-half">
+                            <div class="scores-volume-chart-container chart-container">
+                               <canvas class="scores-volume-chart" data-main-peer-name="{{peerName}}" data-past-years="5" data-step-size="10"></canvas>
+                            </div>
+                            <div class="scores-price-chart-container chart-container">
+                               <canvas class="scores-price-chart" data-main-peer-name="{{peerName}}" data-past-years="5" data-no-months-axe="1" data-max-price-tick="5000000"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "business-summary"}}" class="section-content-title">
+                        Business Summary
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "business-summary")}}}
+                    </div>
+                    <div class="section-content section-text section-top-space">
+                        {{businessSummary}}
+                    </div>
+                </section>
+                
+                <div style="page-break-before: always;"></div>
+                
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "indicator-components"}}" class="section-content-title">
+                        Indicator Components
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "indicator-components")}}}
+                    </div>
+                    <div class="section-top-space">
+                        <div class="clearfix">
+                            <div class="average-score-value average-score-value-fleft clearfix">
+                                Average
+                                <br />
+                                score
+                                <br />
+                                <span class="average-score-value-number">
+                                    {{getLastScoreOfPeer scoresByPeer peerName}}
+                                </span>
+                            </div>
+                            <span class="section-text">
+                                The <b>Average Score</b> combines the quantitative analysis of six widely-used investment decision making tools: Earnings, Fundamental, Relative Valuation, Risk, Price Momentum and Insider Trading.
+                                A simple average of the underlying component ratings is normally distributed to rank stocks on a 1-10 scale (10 being awarded to the most favorable). These factors may be evaluated differently using alternative methodologies and the importance of individual factors varies across industries, market capitalization and investment styles. Additional criteria should always be used to evaluate a stock.
+                            </span>
+                        </div>
+                        <div class="average-score-indicator chart-container">
+                           <canvas data-average-score-indicator-chart data-main-peer-name="{{peerName}}"></canvas>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "optimized-score"}}" class="section-content-title">
+                        Optimized Score
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "optimized-score")}}}
+                    </div>
+                    <div class="section-content section-top-space">
+                        <div class="section-content-left">
+                            <div class="clearfix">
+                                <div class="average-score-value average-score-value-fleft clearfix">
+                                    Optimized
+                                    <br />
+                                    score
+                                    <br />
+                                    <span class="average-score-value-number">
+                                        {{getLastScoreOfPeer scoresByPeer peerName}}
+                                    </span>
+                                </div>
+                                <div class="section-text optimized-score-short-description">
+                                    <span>{{optimizedScoreShortDescription}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content-right">
+                            <div class="section-text">
+                                As an alternative approach to equally weighting each of the six factors, independent research firm, Verus Analytics, conducted a backtest to empirically determine the optimal factor blend. Results and weighting vary across four different market capitalization categories. For large cap stocks, price momentum and insider trading historically provided the most explanatory power among the six factors and are weighted heavily in the current optimized score. Among the small cap universe, the earnings and fundamental factors joined with the insider trading and price momentum to explain returns.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "peer-analysis"}}" class="section-content-title clearfix">
+                        Peer Analysis
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-analysis")}}}
+                        <span class="section-content-subtitle">
+                            Currency in {{currency}}
+                        </span>
+                    </div>
+                    <div class="section-top-space">
+                        <table class="peer-analysis-table">
+                            <tr>
+                                <td class="cell-tcenter" colspan="2"></td>
+                                <td class="cell-group cell-tcenter" colspan="5">PRICE MOMENTUM</td>
+                                <td class="cell-group cell-tcenter" colspan="2">VALUATION</td>
+                                <td class="cell-group cell-tcenter" colspan="2">FUNDAMENTAL</td>
+                                <td class="cell-group cell-tcenter" colspan="3">ANALYSTS</td>
+                            </tr>
+                            <tr class="heading-row">
+                                <td class="cell-tcenter">Average<br />Score</td>
+                                <td class="cell-tleft">Ticker</td>
+                                <td class="cell-tright">Price<br />({{../exchangeDate}})</td>
+                                <td class="cell-tright">1-Mo<br />Return</td>
+                                <td class="cell-tright">3-Mo<br />Return</td>
+                                <td class="cell-tright">1-Yr<br />Return</td>
+                                <td class="cell-tright">Market<br />Cap</td>
+                                <td class="cell-tright">Trailing<br />PE</td>
+                                <td class="cell-tright">Forward<br />PE</td>
+                                <td class="cell-tright">Dividend<br />Yield</td>
+                                <td class="cell-tright">Net<br />Margin</td>
+                                <td class="cell-tright">LTG<br />Forecast</td>
+                                <td class="cell-tleft">I/B/E/S<br />Mean</td>
+                                <td class="cell-tright"># of<br />Analysts</td>
+                            </tr>
+                            {{#each analysisByPeer}}
+                                <tr class="content-row {{addClassIfEqual ticker ../peerName "selected-row"}}">
+                                    <td class="cell-average-score cell-tcenter">
+                                        {{#isEmpty averageScore}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            {{averageScore}}
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tleft">
+                                        {{ticker}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        {{#isEmpty price}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-number-format data-mantissa="2" data-trim-mantissa="0">{{price}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 1MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 1MoReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1MoReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 3MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 3MoReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{3MoReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 1YrReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 1YrReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1YrReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-average-format>{{marketCap}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{trailingPE}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{forwardPE}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{dividendYieldPercentage}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{netMarginPercentage}}</span>
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive ltgForecastPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty ltgForecastPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{ltgForecastPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tleft {{addAnalystsRecommendationClass analystsRecommendationAction}}">
+                                        {{analystsRecommendationAction}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1">{{analystsCount}}</span>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            {{#with (getAverageResultsForAnalysis analysisByPeer)}}
+                                <tr class="content-row average-row">
+                                    <td class="cell-average-score cell-tcenter">
+                                        {{#isEmpty averageScore}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            {{averageScore}}
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tleft">
+                                        {{ticker}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        {{#isEmpty price}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-number-format data-mantissa="2" data-trim-mantissa="0">{{price}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 1MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 1MoReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1MoReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 3MoReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 3MoReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{3MoReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive 1YrReturnPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty 1YrReturnPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{1YrReturnPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-average-format>{{marketCap}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{trailingPE}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1" data-trim-mantissa="0">{{forwardPE}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{dividendYieldPercentage}}</span>
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{netMarginPercentage}}</span>
+                                    </td>
+                                    <td class="cell-tright {{addClassIfEqual (isPositive ltgForecastPercentage) true "cell-positive-value" "cell-negative-value"}}">
+                                        {{#isEmpty ltgForecastPercentage}}
+                                            <span class="empty-value">--</span>
+                                        {{else}}
+                                            <span data-percentage-format data-mantissa="1" data-trim-mantissa="0">{{ltgForecastPercentage}}</span>
+                                        {{/isEmpty}}
+                                    </td>
+                                    <td class="cell-tleft {{addAnalystsRecommendationClass analystsRecommendationAction}}">
+                                        {{analystsRecommendationAction}}
+                                    </td>
+                                    <td class="cell-tright">
+                                        <span data-number-format data-mantissa="1">{{analystsCount}}</span>
+                                    </td>
+                                </tr>
+                            {{/with}}
+                        </table>
+                    </div>
+                </section>
+                <section class="section">
+                    <div id="{{getPeerNameSectionName peerName "peer-companies"}}" class="section-content-title clearfix">
+                        Peer Companies
+                        {{{pdfAddPageItem id=(getPeerNameSectionName peerName "peer-companies")}}}
+                    </div>
+                    <div class="section-top-space">
+                        <table class="peer-companies-table">
+                            {{#each (getItemsGroupedBy peerCompanies 2)}}
+                                <tr>
+                                    {{#each this}}
+                                        <td>{{name}}</td>
+                                        <td>{{companyName}}</td>
+                                    {{/each}}
+                                </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+                </section>
+                
+                <div style="page-break-before: always;"></div>
+            </section>
+        {{/each}}
+        
+        <script>
+            Chart.plugins.unregister(ChartDataLabels)
+        
+            const numberEls = document.querySelectorAll('[data-number-format]')
+            const percentageEls = document.querySelectorAll('[data-percentage-format]')
+            const averageEls = document.querySelectorAll('[data-average-format]')
+            const averageScoreTrendChartEls = document.querySelectorAll('[data-average-score-trend-chart]')
+            const scorePeerTrendChartEls = document.querySelectorAll('.average-score-peer-trend-chart')
+            const volumesChartEls = document.querySelectorAll('.scores-volume-chart')
+            const pricesChartEls = document.querySelectorAll('.scores-price-chart')
+            const averageScoreIndicatorChartEls = document.querySelectorAll('[data-average-score-indicator-chart]')
+            
+            const exchangeDateStr = JSON.parse({{{getJSON exchangeDate}}})
+            const companies = JSON.parse({{{getJSON companies}}})
+            
+            numberEls.forEach((el) => {
+                try {
+                    const mantissa = el.dataset.mantissa != null ? parseInt(el.dataset.mantissa, 10) : 2
+                    const trimMantissa = el.dataset.trimMantissa != null ? Boolean(parseInt(el.dataset.trimMantissa, 10)) : true
+                    
+                    el.innerText = numbro(el.innerText).format({
+                        thousandSeparated: true,
+                        trimMantissa,
+                        mantissa
+                    })   
+                } catch (err) {
+                    console.error(err)
+                }
+            })
+            
+            percentageEls.forEach((el) => {
+                try {
+                    const mantissa = el.dataset.mantissa != null ? parseInt(el.dataset.mantissa, 10) : 2
+                    const trimMantissa = el.dataset.trimMantissa != null ? Boolean(parseInt(el.dataset.trimMantissa, 10)) : true
+                    
+                    el.innerText = numbro(el.innerText).format({ 
+                        output: 'percent', 
+                        mantissa,
+                        trimMantissa
+                    })   
+                } catch (err) {
+                    console.error(err)
+                }
+            })
+            
+            averageEls.forEach((el) => {
+                try {
+                    el.innerText = numbro(el.innerText).format({ 
+                        average: true, 
+                        mantissa: 1
+                    }).toUpperCase()   
+                } catch (err) {
+                    console.error(err)
+                }
+            })
+            
+            averageScoreTrendChartEls.forEach((el) => {
+                const currentMainPeerName = el.dataset.mainPeerName
+                const companyData = getCompanyData(companies, currentMainPeerName)
+                
+                if (!companyData) {
+                    return
+                }
+                
+                const scores = companyData.scoresByMonth
+                
+                if (!scores) {
+                    return
+                }
+                
+                const averageScoreTrendChrt = new Chart(el.getContext('2d'), {
+                    type: 'line',
+                    data: getDatasetForAverageScoreTrend(scores),
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    fontColor: '#000',
+                                    fontSize: 10,
+                                    maxTicksLimit: 3,
+                                    maxRotation: 0
+                                },
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                ticks: {
+                                    min: 0,
+                                    max: 10,
+                                    stepSize: 5,
+                                    fontColor: '#000',
+                                    fontSize: 10,
+                                    callback: (label, index) => {
+                                        if (label >= 8) {
+                                            return 'Positive'
+                                        } else if (label >= 4 && label <= 7) {
+                                            return 'Neutral'
+                                        } else {
+                                            return 'Negative'
+                                        }
+                                    }
+                                }
+                            }, {
+                                display: true,
+                                ticks: {
+                                    min: 0,
+                                    max: 10,
+                                    stepSize: 5,
+                                    fontColor: '#000',
+                                    fontSize: 10,
+                                    callback: (label, index) => {
+                                        if (label >= 4 && label <= 7) {
+                                            return ''
+                                        }
+                                        
+                                        return null
+                                    }
+                                },
+                                gridLines: {
+                                    drawTicks: false,
+                                    drawBorder: false,
+                                    lineWidth: 2,
+                                    borderDash: [4, 4],
+                                    color: '#CC890B'
+                                }
+                            }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0,
+                                hitRadius: 10,
+                                hoverRadius: 6
+                            }
+                        },
+                        title: {
+    						display: true,
+    						text: 'Average Score Trend (4 Week Moving Avg)',
+    						fontSize: 12,
+    						fontColor: '#000'
+    					},
+    					legend: {
+    					    display: false
+    					}
+                    },
+                    plugins: [{
+    				    // plugin for 2 background-color on chart
+    				    beforeDraw: (chart) => {
+    				        const helpers = Chart.helpers
+        					const ctx = chart.chart.ctx
+        					const chartArea = chart.chartArea
+                            const firstBgSize = 20
+                            
+        					ctx.save();
+        					ctx.fillStyle = '#EAEAEA';
+        					ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.top + firstBgSize)
+        					ctx.fillStyle = '#F6F6F6';
+        					ctx.fillRect(chartArea.left, chartArea.top + firstBgSize, chartArea.right - chartArea.left, chartArea.bottom - (chartArea.top + firstBgSize))
+        					ctx.restore()
+    				    }
+    				}]
+                })  
+            })
+            
+            scorePeerTrendChartEls.forEach((el) => {
+                const currentMainPeerName = el.dataset.mainPeerName
+                const currentPeer = el.dataset.peerName
+                const companyData = getCompanyData(companies, currentMainPeerName)
+                
+                if (!companyData) {
+                    return
+                }
+                
+                const scoresByPeer = companyData.scoresByPeer
+                
+                if (!scoresByPeer) {
+                    return
+                }
+                
+                const chart = new Chart(el.getContext('2d'), {
+                    type: 'line',
+                    data: getDatasetForAverageScoreTrend(scoresByPeer[currentPeer]),
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: false,
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                display: false,
+                                gridLines: {
+                                    display: false
+                                }
+                            }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0,
+                                hitRadius: 5,
+                                hoverRadius: 4
+                            }
+                        },
+                        title: {
+    						display: false
+    					},
+    					legend: {
+    					    display: false
+    					}
+                    }
+                })
+            })
+            
+            volumesChartEls.forEach((el) => {
+                const currentMainPeerName = el.dataset.mainPeerName
+                const currentPeer = el.dataset.peerName
+                const companyData = getCompanyData(companies, currentMainPeerName)
+                
+                if (!companyData) {
+                    return
+                }
+                
+                const pricesByWeek = companyData.pricesByWeek
+                const volumesByWeek = companyData.volumesByWeek
+                
+                if (!pricesByWeek || !volumesByWeek) {
+                    return
+                }
+                
+                const byPastYears = parseInt(el.dataset.pastYears, 10)
+                const stepSize = el.dataset.stepSize != null ? parseInt(el.dataset.stepSize, 10) : 2
+                
+                const priceData = getDatasetForPrices(pricesByWeek, exchangeDateStr, byPastYears).datasets[0].data
+                
+                const priceReturnPercentage = (priceData[priceData.length - 1] - priceData[0]) / priceData[0]
+                
+                const chart = new Chart(el.getContext('2d'), {
+                    type: 'line',
+                    data: getDatasetForVolumes(volumesByWeek, exchangeDateStr, byPastYears),
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    fontColor: 'transparent'
+                                },
+                                gridLines: {
+                                    display: true,
+                                    color: '#fff',
+                                    borderDash: [2, 2]
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    fontColor: '#7C7C7C' ,
+                                    fontSize: 10,
+                                    stepSize
+                                },
+                                gridLines: {
+                                    display: true,
+                                    color: '#fff',
+                                    borderDash: [2, 2]
+                                }
+                            }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0,
+                                hitRadius: 5,
+                                hoverRadius: 4
+                            }
+                        },
+                        title: {
+    						display: true,
+    						text: `${byPastYears}-Year Return: ${numbro(priceReturnPercentage).format({ output: 'percent', mantissa: 1, trimMantissa: true })}`,
+    						fontSize: 12,
+    						fontColor: '#000'
+    					},
+    					legend: {
+    					    display: false
+    					}
+                    },
+                    plugins: [{
+    				    // plugin for background-color on chart
+    				    beforeDraw: (chart) => {
+    				        const helpers = Chart.helpers
+        					const ctx = chart.chart.ctx
+        					const chartArea = chart.chartArea
+                            const firstBgSize = 20
+                            
+        					ctx.save();
+        					ctx.fillStyle = '#EAEAEA';
+        					ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
+        					ctx.restore()
+    				    }
+    				}]
+                })
+            })
+            
+            pricesChartEls.forEach((el) => {
+                const currentMainPeerName = el.dataset.mainPeerName
+                const currentPeer = el.dataset.peerName
+                const companyData = getCompanyData(companies, currentMainPeerName)
+                
+                if (!companyData) {
+                    return
+                }
+                
+                const pricesByWeek = companyData.pricesByWeek
+                
+                if (!pricesByWeek) {
+                    return
+                }
+                
+                const byPastYears = parseInt(el.dataset.pastYears, 10)
+                const maxPriceTick = el.dataset.maxPriceTick != null ? parseInt(el.dataset.maxPriceTick, 10) : 2000
+                const noMonthsAxe = el.dataset.noMonthsAxe != null ? Boolean(el.dataset.noMonthsAxe) : false
+                
+                const yearsRendered = {}
+                
+                const MONTHS_MAP = {
+                    '01': 'Jan',
+                    '02': 'Feb',
+                    '03': 'Mar',
+                    '04': 'Apr',
+                    '05': 'May',
+                    '06': 'Jun',
+                    '07': 'Jul',
+                    '08': 'Aug',
+                    '09': 'Sep',
+                    '10': 'Oct',
+                    '11': 'Nov',
+                    '12': 'Dec'
+                }
+                
+                const inputData = getDatasetForPrices(pricesByWeek, exchangeDateStr, byPastYears)
+                
+                const monthsByYear = inputData.labels.reduce((acu, l) => {
+                    const dateParts = l.split('-')
+                    const year = dateParts[0]
+                    const month = dateParts[1]
+                    
+                    acu[year] = acu[year] || []
+                    
+                    if (!acu[year].includes(month)) {
+                        acu[year].push(month)   
+                    }
+                    
+                    return acu
+                }, {})
+                
+                const xAxes = []
+                
+                if (!noMonthsAxe) {
+                    xAxes.push({
+                        ticks: {
+                            fontColor: '#7C7C7C',
+                            fontSize: 8,
+                            autoSkip: false,
+                            callback: (value, index, values) => {
+                                const dateParts = value.split('-')
+                                const month = dateParts[1]
+                                const week = dateParts[2]
+                                
+                                if (MONTHS_MAP[month] != null && week === '1') {
+                                    return `| ${MONTHS_MAP[month]}`
+                                }
+                                
+                                return null
+                            },
+                            maxRotation: 0
+                        },
+                        gridLines: {
+                            display: true,
+                            color: '#fff',
+                            borderDash: [2, 2]
+                        }
+                    })
+                }
+                
+                xAxes.push({
+                    ticks: {
+                        fontColor: '#7C7C7C',
+                        fontSize: 8,
+                        autoSkip: false,
+                        callback: (value) => {
+                            const dateParts = value.split('-')
+                            const year = dateParts[0]
+                            const month = dateParts[1]
+                            const week = dateParts[2]
+                            const totalMonthsForYear = monthsByYear[year].length
+                            const middleMonthIndex = Math.max(0, Math.floor(totalMonthsForYear / 2) - 1)
+                            const middleMonth = monthsByYear[year][middleMonthIndex]
+                            
+                            if (monthsByYear[year] != null && month === middleMonth && week === '1') {
+                                return year
+                            }
+                            
+                            return null
+                        },
+                        maxRotation: 0
+                    },
+                    gridLines: {
+                        display: noMonthsAxe ? true : false,
+                        color: '#fff',
+                        borderDash: [2, 2]
+                    }
+                })
+                
+                const chart = new Chart(el.getContext('2d'), {
+                    type: 'bar',
+                    data: inputData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        scales: {
+                            xAxes,
+                            yAxes: [{
+                                ticks: {
+                                    fontColor: '#7C7C7C',
+                                    fontSize: 10,
+                                    beginAtZero: true,
+                                    stepSize: 1000000,
+                                    callback: (value, index, values) => {
+                                        if (value === 0 || value === maxPriceTick) {
+                                            return `${value > 0 ? value / 1000 : value} K`
+                                        }
+                                        
+                                        return null
+                                    }
+                                },
+                                gridLines: {
+                                    display: true,
+                                    color: '#fff',
+                                    borderDash: [2, 2]
+                                }
+                            }]
+                        },
+                        title: {
+    						display: false
+    					},
+    					legend: {
+    					    display: false
+    					}
+                    },
+                    plugins: [{
+    				    // plugin for background-color on chart
+    				    beforeDraw: (chart) => {
+    				        const helpers = Chart.helpers
+        					const ctx = chart.chart.ctx
+        					const chartArea = chart.chartArea
+                            const firstBgSize = 20
+                            
+        					ctx.save();
+        					ctx.fillStyle = '#EAEAEA';
+        					ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
+        					ctx.restore()
+    				    }
+    				}]
+                })
+            })
+            
+            averageScoreIndicatorChartEls.forEach((el) => {
+                const currentMainPeerName = el.dataset.mainPeerName
+                const companyData = getCompanyData(companies, currentMainPeerName)
+                
+                if (!companyData) {
+                    return
+                }
+                
+                const indicatorComponents = companyData.indicatorComponents
+                
+                if (!indicatorComponents) {
+                    return
+                }
+                
+                const averageScoreIndicatorChrt = new Chart(el.getContext('2d'), {
+                    type: 'bar',
+                    data: getDatasetForAverageScoreIndicator(),
+                    plugins: [ChartDataLabels],
+                    options: {
+                        plugins: {
+                            datalabels: {
+                                align: (context) =>  {
+                                    const currentLabel = context.chart.data.labels[context.dataIndex]
+                                    
+                                    const currentValue = indicatorComponents[currentLabel]
+                                    const currentValueType = getScoreValueType(currentValue)
+                                    
+                                    if (currentValueType === 'NoRating') {
+                                        return 'center'
+                                    } else if (currentValueType === 'Negative') {
+                                        if (currentValue === 1) {
+                                            return 'bottom'
+                                        } else if (currentValue === 2) {
+                                            return 'center'
+                                        } else {
+                                            return 'top'
+                                        }
+                                    } else if (currentValueType === 'Neutral') {
+                                        if (currentValue === 4) {
+                                            return 'bottom'
+                                        } else if (currentValue === 5) {
+                                            return 'center'
+                                        } else {
+                                            return 'top'
+                                        }
+                                    } else if (currentValueType === 'Positive') {
+                                        if (currentValue === 8) {
+                                            return 'bottom'
+                                        } else if (currentValue === 9) {
+                                            return 'center'
+                                        } else {
+                                            return 'top'
+                                        }
+                                    }
+                                },
+                                color: '#fff',
+                                backgroundColor: '#205986',
+                                borderColor: '#205986',
+                                borderRadius: 3,
+                                borderWidth: 1,
+                                font: {
+                                    size: 10  
+                                },
+                                padding: {
+                                    top: 2,
+                                    bottom: 2,
+                                    left: 12,
+                                    right: 12
+                                },
+                                formatter: (value, context) => {
+                                    const currentLabel = context.chart.data.labels[context.dataIndex]
+                                    
+                                    const valueTypesDataIndexes = {
+                                        "NoRating": 0,
+                                        "Negative": 1,
+                                        "Neutral": 2,
+                                        "Positive": 3
+                                    }
+                                    
+                                    const currentValue = indicatorComponents[currentLabel]
+                                    const currentValueType = getScoreValueType(currentValue)
+                                    const currentValueTypeIndex = valueTypesDataIndexes[currentValueType]
+                                        
+                                    if (context.datasetIndex === currentValueTypeIndex) {
+                                        if (currentValue === 0) {
+                                            return 'NR'
+                                        }
+                                        
+                                        return currentValue    
+                                    }
+                                    
+                                    return null
+                                }
+                            }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        tooltips: {
+    						mode: 'index',
+    						intersect: false
+    					},
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                position: 'top',
+                                barPercentage: 0.4,
+                                ticks: {
+                                    fontColor: '#000',
+                                    fontStyle: 'bold',
+                                    fontSize: 11
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                stacked: true
+                            }],
+                            yAxes: [{
+                                display: true,
+                                ticks: {
+                                    min: -1,
+                                    max: 10,
+                                    stepSize: 1,
+                                    fontColor: '#000',
+                                    fontSize: 11,
+                                    padding: 15,
+                                    callback: (label, index, labels) => {
+                                        if (label === 9) {
+                                            return 'Positive'
+                                        } else if (label === 5) {
+                                            return 'Neutral'
+                                        } else if (label === 2) {
+                                            return 'Negative'
+                                        } else if (label === -1) {
+                                            return 'No Rating'
+                                        } else {
+                                            return ''
+                                        }
+                                    }
+                                },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                stacked: true
+                            }, {
+                                display: true,
+                                position: 'right',
+                                ticks: {
+                                    min: 0,
+                                    max: 10,
+                                    stepSize: 1,
+                                    fontColor: '#000',
+                                    fontSize: 11,
+                                    padding: 15,
+                                    callback: (label, index, labels) => {
+                                        if (label === 0) {
+                                            return 'NR'
+                                        } else {
+                                            return label
+                                        }
+                                    }
+                                },
+                                gridLines: {
+                                    display: true,
+                                    color: '#EDEDED',
+                                    lineWidth: 1.5,
+                                    drawBorder: false
+                                },
+                                stacked: true
+                            }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0,
+                                hitRadius: 10,
+                                hoverRadius: 6
+                            }
+                        },
+                        title: {
+    						display: false
+    					},
+    					legend: {
+    					    display: false
+    					}
+                    }
+                })                
+            })
+
+            function getCompanyData (companies, peerName) {
+                return companies.find((comp) => comp.peerName === peerName)
+            }
+            
+            function getScoreValueType (currentValue) {
+                let valueType
+                
+                if (currentValue == null) {
+                    return null
+                }
+                                                
+                if (currentValue >= 8) {
+                    valueType = 'Positive'
+                } else if (currentValue >= 4 && currentValue <= 7) {
+                    valueType = 'Neutral'
+                } else if (currentValue >= 1 && currentValue <= 3) {
+                    valueType = 'Negative'
+                } else {
+                    valueType = 'NoRating'
+                }
+                
+                return valueType
+            }
+            
+            function getDatasetForAverageScoreTrend (scores) {
+                return {
+    				labels: scores.map((s) => s.month),
+    				datasets: [{
+    					label: 'Filled',
+    					backgroundColor: 'rgba(47, 124, 186, 0.7)',
+    					borderColor: '#2F7CBA',
+    					data: scores.map((s) => s.value),
+    					fill: 'start'
+    				}]
+    			}
+            }
+            
+            function getDatasetForVolumes (volumes, exchangeDateStr, byPastYears) {
+                const dateParts = exchangeDateStr.split('-')
+                const year = parseInt(dateParts[0], 10)
+                const targetYear = year - byPastYears
+                const targetMonth = Math.min(parseInt(dateParts[1], 10) + 1, 12)
+                
+                const selectedVolumes = volumes.filter((v) => {
+				    const cYear = parseInt(v.week.split('-')[0], 10)
+				    const cMonth = parseInt(v.week.split('-')[1], 10)
+				    
+				    return (
+				        (cYear === targetYear && cMonth >= targetMonth) ||
+				        (cYear > targetYear)
+			        )
+				})
+                
+                return {
+    				labels: selectedVolumes.map((v) => v.week),
+    				datasets: [{
+    					label: 'Volume',
+    					backgroundColor: 'rgba(246, 168, 0, 0.4)',
+    					borderColor: 'rgb(246, 168, 0)',
+    					data: selectedVolumes.map((v) => v.value),
+    					fill: 'start'
+    				}]
+    			}
+            }
+            
+            function getDatasetForPrices (prices, exchangeDateStr, byPastYears) {
+                const dateParts = exchangeDateStr.split('-')
+                const year = parseInt(dateParts[0], 10)
+                const targetYear = year - byPastYears
+                const targetMonth = Math.min(parseInt(dateParts[1], 10) + 1, 12)
+                
+                const selectedPrices = prices.filter((p) => {
+				    const cYear = parseInt(p.week.split('-')[0], 10)
+				    const cMonth = parseInt(p.week.split('-')[1], 10)
+				    
+				    return (
+				        (cYear === targetYear && cMonth >= targetMonth) ||
+				        (cYear > targetYear)
+			        )
+				})
+                
+                return {
+                    labels: selectedPrices.map((p) => p.week),
+                    datasets: [{
+                        label: 'Price',
+                        backgroundColor: 'rgba(144, 144, 144, 0.5)',
+                        data: selectedPrices.map((p) => p.value)
+                    }]
+                }
+            }
+            
+            function getDatasetForAverageScoreIndicator () {
+                return {
+                    labels: ['Earnings', 'Fundamental', 'Relative Valuation', 'Risk', 'Price Momentum', 'Insider Trading'],
+                    datasets: [{
+                        label: 'Score NoRating',
+                        backgroundColor: '#DCDCDC',
+                        data: [-1, -1, -1, -1 , -1, -1]
+                    }, {
+                        label: 'Score Negative',
+                        backgroundColor: '#BABABA',
+                        data: [3, 3, 3, 3, 3, 3]
+                    }, {
+                        label: 'Score Neutral',
+                        backgroundColor: '#F7B600',
+                        data: [4, 4, 4, 4, 4, 4]
+                    }, {
+                        label: 'Score Positive',
+                        backgroundColor: '#ED8C00',
+                        data: [3, 3, 3, 3, 3, 3]
+                    }]
+                }
+            }
+            
+            window.JSREPORT_READY_TO_START = true
+        </script>
+    </body>
+</html>

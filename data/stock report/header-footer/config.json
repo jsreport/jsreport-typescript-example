@@ -1,0 +1,24 @@
+{
+    "_id": "5caf380cffc41ab61f09b67b",
+    "shortid": "r1gLo-EbOE",
+    "name": "header-footer",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "marginTop": "0px",
+        "marginRight": "40px",
+        "marginBottom": "0px",
+        "marginLeft": "40px",
+        "format": "Legal"
+    },
+    "creationDate": {
+        "$$date": 1599582638872
+    },
+    "modificationDate": {
+        "$$date": 1599582638872
+    },
+    "scripts": [],
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "templates"
+}

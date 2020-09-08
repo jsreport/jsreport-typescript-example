@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <style>
+            {#asset ./styles/cover.css @encoding=utf8}
+        </style>
+    </head>
+    <body>
+        <main class="cover">
+            {{{pdfAddPageItem pageBeforeTOC=true}}}
+            <div class="cover-header">
+                <div class="cover-header-content">
+                    <div>
+                        <div class="cover-logo">
+                            <img src="{#asset ./images/logo.png @encoding=dataURI}" />
+                        </div>
+                    </div>
+                    <div class="cover-header-description">
+                        Innovative and unlimited reporting based on javascript templating engines
+                    </div>
+                </div>
+            </div>
+            <div class="cover-footer">
+                <div class="cover-footer-square"></div>
+                <div class="cover-footer-bg"></div>
+                <div class="cover-footer-content">
+                    <span class="cover-footer-title-primary">DETAILED</span>
+                    <br />
+                    <span class="cover-footer-title-secondary">STOCK REPORT</span>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, serif;
+    font-size: 12px;
+    /*this disables the scrollbars of page thus making the available with the same on both renders*/
+    /*this is needed to have the TOC page at the same position than the main template.*/
+    overflow: hidden;
+}
+
+.toc {
+    font-family: Arial, serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.toc-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.toc-line {
+    flex: 1;
+}
+
+.toc-line-separator {
+    margin-left: 8px;
+    margin-right: 8px;
+    border-bottom: 3px dotted rgb(200, 200, 200);
+}
+
+.toc h1 {
+    margin-top: 0px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-family: arial;
+}
+
+.toc span {
+    font-size: 16px;
+    text-align: right;
+}
+
+.toc li {
+    list-style: none;
+    padding-bottom: 7px;
+}
+
+.toc ul {
+    font-size: 18px;
+    font-family: arial;
+}
+
+.toc ul ul,
+.toc ul ul span {
+    font-size: 0.8em;
+}
+
+.toc ul {
+    padding-left: 0px;
+}
+
+.toc ul ul {
+    padding-left: 15px;
+}
+
+.toc a {
+    text-decoration: none;
+    color: black;
+}
+
+.toc-no-border {
+    border-bottom-color: transparent;
+}
+
+.toc-hidden {
+    visibility: hidden;
+}
+
+.toc-footer {
+    font-size: 20px;
+    padding-bottom: 30px;
+    border-top: 2px solid black;
+}

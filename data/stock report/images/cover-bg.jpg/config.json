@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380dffc41a910109b686",
+    "name": "cover-bg.jpg",
+    "creationDate": {
+        "$$date": 1599582638940
+    },
+    "modificationDate": {
+        "$$date": 1599582638940
+    },
+    "shortid": "8aCAJU6",
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "assets"
+}

@@ -1,0 +1,547 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, serif;
+    font-size: 12px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.chart-container {
+    position: relative;
+}
+
+.section {
+    padding-bottom: 15px;
+}
+
+.section-text {
+    line-height: 1.4;
+    text-align: justify;
+}
+
+.section-top-space {
+    padding-top: 10px;
+}
+
+.section-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-content-title {
+    background-color: #666;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 4px;
+    text-transform: uppercase;
+}
+
+.section-content-subtitle {
+    font-weight: normal;
+    text-transform: none;
+    font-size: 14px;
+    float: right;
+}
+
+.section-content-left {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.section-content-half {
+    width: 50%;
+}
+
+.section-content-right {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.summary-score {
+    padding-bottom: 30px;
+}
+
+.summary-score-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-score-label {
+    font-size: 12px;
+    font-weight: normal;
+    color: #666;
+}
+
+.summary-score-separator {
+    margin-top: 10px;
+}
+
+.summary-score-top-label {
+    padding-top: 3px;
+}
+
+.summary-score-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.summary-score-text {
+    font-size: 12px;
+    font-weight: normal;
+    color: #000;
+}
+
+.summary-score-currency {
+    font-size: 16px;
+    font-weight: normal;
+    color: #666;
+}
+
+.summary-score-table {
+    border-collapse: collapse;
+}
+
+.summary-score-table-top-space td {
+    padding-top: 15px;
+}
+
+.summary-score-table td {
+    padding-right: 10px;
+}
+
+.summary-score-table .cell-space {
+    padding-right: 30px;
+}
+
+.average-score-subtitle {
+    text-align: right;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #B5B5B5;
+}
+
+.average-score-value {
+    display: inline-block;
+    background: linear-gradient(179deg, rgb(15, 61, 103) 0%, rgb(28, 78, 123) 99%);
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    float: right;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.average-score-value-top-negative {
+    margin-top: -50px;
+}
+
+.average-score-value-fleft {
+    float: left;
+    margin-right: 20px;
+}
+
+.average-score-value-number {
+    display: inline-block;
+    font-size: 64px;
+    padding-top: 5px;
+    line-height: 1;
+}
+
+.average-score-trend {
+    padding-top: 10px;
+    height: 170px;
+}
+
+.average-score-inline-table {
+    display: flex;
+    justify-content: space-around;
+    font-size: 10;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.average-score-inline-table-item {
+    padding: 2px;
+}
+
+.average-score-table {
+    margin-top: 18px;
+    font-size: 12px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.average-score-table th {
+    text-align: left;
+}
+
+.average-score-table th:first-child,
+.average-score-table td:first-child {
+    padding-left: 5px;
+}
+
+.average-score-table tr:nth-child(even) td {
+    background-color: #E6E6E6;
+}
+
+.average-score-table .main-peer td {
+    font-weight: bold;
+}
+
+.average-score-table .cell-number {
+    text-align: right;
+}
+
+.average-score-table .cell-current-score {
+    text-align: center;
+}
+
+.average-score-table .cell-current-score-value {
+    display: inline-block;
+    color: #fff;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.average-score-table .cell-score-trend {
+    width: 100px;
+    text-align: center;
+}
+
+.average-score-table tr:nth-child(even) .cell-current-score-value {
+    background-color: #205986;
+}
+
+.average-score-table tr:nth-child(odd) .cell-current-score-value {
+    background-color: #3281C2;
+}
+
+.average-score-peer-trend-chart-container {
+    width: 90px;
+    height: 25px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+}
+
+.average-score-peer-trend-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.scores-highlights-list {
+    margin: 0;
+    padding-left: 15px;
+    list-style-type: none;
+}
+
+.scores-highlights-list > li {
+    position: relative;
+}
+
+.scores-highlights-list > li:not(:first-child) {
+    margin-top: 10px;
+}
+
+.scores-highlights-list > li:before {
+    content: "-";
+    position: absolute;
+    left: -10px;
+}
+
+.scores-mean-recommendation {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.scores-mean-recommendation-text {
+    flex-shrink: 0;
+}
+
+.scores-mean-recommendation-action {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.scores-mean-recommendation-action.cell-recommendation-sell {
+    color: #9D1200;
+}
+
+.scores-mean-recommendation-action.cell-recommendation-reduce {
+    color: #D51F00;
+}
+
+.scores-mean-recommendation-action.cell-recommendation-hold {
+    color: #F7B600;
+}
+
+.scores-mean-recommendation-action.cell-recommendation-buy {
+    color: #44A415;
+}
+
+.scores-mean-recommendation-action.cell-strong-buy {
+    color: #387C1E;
+}
+
+.scores-mean-recommendation-label {
+    margin-left: 50px;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.scores-mean-recommendation-graphic {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.scores-mean-recommendation-graphic-item {
+    display: flex;
+    align-items: center;
+    background-color: #F1F1F1;
+    color: #71757D;
+    position: relative;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 10px solid;
+}
+
+.scores-mean-recommendation-graphic-item:not(:last-child) {
+    margin-right: 5px;
+}
+
+.scores-mean-recommendation-graphic-item.active:before {
+    position: absolute;
+    bottom: -17px;
+    left: 25%;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7px 16px 7px;
+    border-color: transparent transparent #fff transparent;
+}
+
+.scores-mean-recommendation-graphic-item.active:after {
+    position: absolute;
+    bottom: -17px;
+    left: 25%;
+    content: "";
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    border-style: solid;
+    border-width: 0 5px 15px 5px;
+}
+
+.scores-mean-recommendation-graphic-item-sell {
+    border-bottom-color: #9D1200;
+}
+
+.scores-mean-recommendation-graphic-item-sell.active:after {
+    border-color: transparent transparent #5a0d03 transparent;
+}
+
+.scores-mean-recommendation-graphic-item-reduce {
+    border-bottom-color: #D51F00;
+}
+
+.scores-mean-recommendation-graphic-item-reduce.active:after {
+    border-color: transparent transparent #c5331a transparent;
+}
+
+.scores-mean-recommendation-graphic-item-hold {
+    border-bottom-color: #F7B600;
+}
+
+.scores-mean-recommendation-graphic-item-hold.active:after {
+    border-color: transparent transparent #e68f0c transparent;
+}
+
+.scores-mean-recommendation-graphic-item-buy {
+    border-bottom-color: #44A415;
+}
+
+.scores-mean-recommendation-graphic-item-buy.active:after {
+    border-color: transparent transparent #308407 transparent;
+}
+
+.scores-mean-recommendation-graphic-item-strong-buy {
+    border-bottom-color: #387C1E;
+}
+
+.scores-mean-recommendation-graphic-item-strong-buy.active:after {
+    border-color: transparent transparent #21580c transparent;
+}
+
+.scores-volume-chart-container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 220px;
+}
+
+.scores-price-chart-container {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: -60px;
+    height: 100px;
+}
+
+.scores-volume-chart,
+.scores-price-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.average-score-indicator {
+    padding-top: 20px;
+    height: 250px;
+}
+
+.optimized-score-short-description {
+    font-style: italic;
+    text-align: initial;
+}
+
+.peer-analysis-table {
+    font-size: 12px;
+    width: 100%;
+    border-spacing: 4px 0px;
+}
+
+.peer-analysis-table td {
+    text-align: center;
+}
+
+.peer-analysis-table .cell-group {
+    background-color: #ED8C00;
+    color: #fff;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.peer-analysis-table .cell-tleft {
+    text-align: left;
+}
+
+.peer-analysis-table .cell-tcenter {
+    text-align: center;
+}
+
+.peer-analysis-table .cell-tright {
+    text-align: right;
+}
+
+.peer-analysis-table .heading-row td {
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+.peer-analysis-table .heading-row td {
+    border-bottom: 1px solid #8C8C8C;
+}
+
+.peer-analysis-table .average-row td {
+    border-top: 1px solid #8C8C8C;
+}
+
+.peer-analysis-table .content-row td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.peer-analysis-table .content-row:nth-child(odd) td {
+    background-color: #E5E5E5;
+}
+
+.peer-analysis-table .cell-average-score {
+    color: fff;
+}
+            
+.peer-analysis-table .content-row:nth-child(odd) .cell-average-score {
+    background-color: #205986;
+}
+
+.peer-analysis-table .content-row:nth-child(even) .cell-average-score {
+    background-color: #3281C2;
+}
+
+.peer-analysis-table .selected-row td:not(.cell-average-score) {
+    background-color: #4D7BB4 !important;
+    color: #fff !important;
+}
+
+.peer-analysis-table .cell-positive-value {
+    color: #44A415;
+}
+
+.peer-analysis-table .cell-negative-value {
+    color: #D83140;
+}
+
+.peer-analysis-table .cell-recommendation-sell {
+    color: #9D1200;
+}
+
+.peer-analysis-table .cell-recommendation-reduce {
+    color: #D51F00;
+}
+
+.peer-analysis-table .cell-recommendation-hold {
+    color: #F7B600;
+}
+
+.peer-analysis-table .cell-recommendation-buy {
+    color: #44A415;
+}
+
+.peer-analysis-table .cell-strong-buy {
+    color: #387C1E;
+}
+
+.peer-analysis-table .empty-value {
+    color: #000;
+}
+
+.peer-companies-table {
+    font-size: 12px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.peer-companies-table td {
+    text-align: left;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.peer-companies-table tr:nth-child(even) td {
+    background-color: #E5E5E5;
+}

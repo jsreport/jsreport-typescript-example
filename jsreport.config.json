@@ -1,0 +1,16 @@
+{
+    "httpPort": 5488,
+    "allowLocalFilesAccess": true,
+    "store": {
+        "provider": "fs"
+    },
+    "blobStorage": {
+        "provider": "fs"
+    },
+    "reportTimeout": 60000,
+    "extensions": {
+        "sample-template": {
+            "createSamples": false
+        }
+    }
+}

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+            {#asset ./styles/header-footer.css @encoding=utf8}
+        </style>
+    </head>
+    <body>
+        {{#each $pdf.pages}}
+            {{#if @index}}
+                <div style="page-break-before: always;"></div>
+            {{/if}}
+            
+            <main class="main">
+                {{#ifContentPage @this}}
+                    <header class="header">
+                        <section class="header-content">
+                            <section class="header-company">
+                                <h1 class="header-title">{{group.fullName}} ({{group.abbreviation}})</h1>
+                                {{#ifOnFirstPageOfGroup @this}}
+                                    {{{pdfAddPageItem id=group.peerName}}}
+                                {{/ifOnFirstPageOfGroup}}
+                                <h2 class="header-subtitle">{{group.business}}</h2>
+                            </section>
+                            <section class="header-legend">
+                                <h1 class="header-title">Detailed Stock Report</h1>
+                                <h2 class="header-subtitle">Report Date: {{formatReportDate}}</h2>
+                            </section>
+                        </section>
+                    </header>
+                    <footer class="footer">
+                        <section class="footer-content">
+                            <section class="footer-legend">
+                                <div class="footer-page-numbers">Page {{getPageNumber ../$pdf.pages @index}} of {{getTotalPages ../$pdf.pages}}</div>
+                                <div class="footer-copy">© {{getCurrentYear}} jsreport. All rights reserved.</div>
+                            </section>
+                            <section class="footer-logo">
+                                <img src="{#asset ./images/logo.png @encoding=dataURI}" />
+                            </section>
+                        </section>
+                    </footer>
+                {{else}}
+                    <span>&nbsp;</span>
+                {{/ifContentPage}}
+            </main>
+        {{/each}}
+    </body>
+</html>

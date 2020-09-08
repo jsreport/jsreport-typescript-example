@@ -1,0 +1,25 @@
+{
+    "_id": "5caf380cffc41a813a09b67c",
+    "shortid": "HJl3VUr9tN",
+    "name": "toc",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "format": "Legal",
+        "marginTop": "100px",
+        "marginRight": "40px",
+        "marginBottom": "0px",
+        "marginLeft": "40px"
+    },
+    "creationDate": {
+        "$$date": 1599582638880
+    },
+    "modificationDate": {
+        "$$date": 1599582638880
+    },
+    "data": null,
+    "scripts": [],
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "templates"
+}

@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380cffc41aefd909b680",
+    "name": "helpers.js",
+    "creationDate": {
+        "$$date": 1599582638906
+    },
+    "modificationDate": {
+        "$$date": 1599582638906
+    },
+    "shortid": "ap0vu_q",
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "assets"
+}

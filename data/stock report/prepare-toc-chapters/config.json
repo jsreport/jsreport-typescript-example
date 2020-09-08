@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380cffc41a329409b67f",
+    "shortid": "rJe-h2B5K4",
+    "name": "prepare-toc-chapters",
+    "creationDate": {
+        "$$date": 1599582638947
+    },
+    "modificationDate": {
+        "$$date": 1599582638947
+    },
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "scripts"
+}

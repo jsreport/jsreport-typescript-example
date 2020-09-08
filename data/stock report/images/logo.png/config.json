@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380cffc41a341909b681",
+    "name": "logo.png",
+    "creationDate": {
+        "$$date": 1599582638921
+    },
+    "modificationDate": {
+        "$$date": 1599582638921
+    },
+    "shortid": "FonyZmN",
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "assets"
+}

@@ -1,0 +1,36 @@
+<style>
+    {#asset ./styles/toc.css @encoding=utf8}
+</style>
+<style>
+</style>
+{{#each (getPagesBeforeTOC @root)}}
+    <!-- in order to produce a new page there must be some element before -->
+    <div style="visibility: hidden;">&nbsp;</div>
+    <div style="page-break-before: always;"></div>
+{{/each}}
+<section class="toc">
+    <main>
+        {{{pdfAddPageItem ignoreHeaderFooter=true ignorePageInCount=true}}}
+        <h1 class="{{{addClassOnPdfMerge @root "toc-hidden"}}}">Table of contents</h1>
+        <ul>
+            {{#level chapters null}}
+            <li>
+                <div class="toc-content">
+                    <a class="{{{addClassOnPdfMerge @root "toc-hidden"}}}" href="#{{id}}" data-pdf-outline data-pdf-outline-parent="{{parent}}">
+                        {{title}}
+                    </a>
+                    <div class="toc-line">
+                        <div class="toc-line-separator {{{addClassOnPdfMerge @root "" "toc-hidden"}}}"></div>
+                    </div>
+                    <span>{{getPage @root id}}</span>
+                </div>
+            </li>
+            {{/level}}
+        </ul>
+    </main>
+    {{#ifOnPdfMerge @root}}
+        <footer class="toc-footer">
+            Detailed Stock Report
+        </footer>
+    {{/ifOnPdfMerge}}
+</section>

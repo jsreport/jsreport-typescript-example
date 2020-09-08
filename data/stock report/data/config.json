@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380cffc41af85209b67e",
+    "shortid": "rk-NnBguV",
+    "name": "data",
+    "creationDate": {
+        "$$date": 1599582638893
+    },
+    "modificationDate": {
+        "$$date": 1599582638893
+    },
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "data"
+}

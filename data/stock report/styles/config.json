@@ -1,0 +1,13 @@
+{
+    "_id": "5caf380cffc41a093509b678",
+    "name": "styles",
+    "creationDate": {
+        "$$date": 1599582638859
+    },
+    "modificationDate": {
+        "$$date": 1599582638859
+    },
+    "shortid": "WKmVm7P",
+    "workspaceId": "5caf380cffc41a7f6809b675",
+    "$entitySet": "folders"
+}

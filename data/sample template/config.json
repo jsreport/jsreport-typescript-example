@@ -1,0 +1,17 @@
+{
+    "shortid": "9EWuwr-CtI",
+    "name": "sample template",
+    "recipe": "html",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1599583440518
+    },
+    "modificationDate": {
+        "$$date": 1599583471115
+    },
+    "_id": "mDGGlTm0X9ZSsdtk",
+    "$entitySet": "templates"
+}
