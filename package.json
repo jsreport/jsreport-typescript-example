@@ -6,7 +6,8 @@
     "watch": "tsc -w",
     "integrated": "node -r source-map-support/register dist/integrated.js",
     "server": "node -r source-map-support/register dist/server.js",
-    "client": "node -r source-map-support/register dist/client.js"
+    "client": "node -r source-map-support/register dist/client.js",
+    "stateless": "node -r source-map-support/register dist/stateless.js"
   },
   "author": "",
   "license": "ISC",
