@@ -13,7 +13,7 @@ npm i
 npm run watch
 ```
 
-** The types don'tt cover 100% of jsreport yet. Please help us by contributing to the [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped).**
+**The types don'tt cover 100% of jsreport yet. Please help us by contributing to the [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped).**
 
 ## jsreport client example
 
